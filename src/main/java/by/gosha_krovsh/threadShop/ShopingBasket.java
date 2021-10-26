@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ShopingBasket {
-    ArrayList<Item> itemsList = new ArrayList<>();
+    private final ArrayList<Item> itemsList = new ArrayList<>();
 
     protected void put(Item item) {
         if (itemsList.contains(item)) {
@@ -12,6 +12,10 @@ public class ShopingBasket {
         } else {
             itemsList.add(item);
         }
+    }
+
+    protected boolean isEmpty() {
+        return itemsList.isEmpty();
     }
 
     protected void leave(Item item) {
