@@ -48,7 +48,5 @@ public final class Shelf {
             default:
                 return Bun;
         }
-
     }
-
 }

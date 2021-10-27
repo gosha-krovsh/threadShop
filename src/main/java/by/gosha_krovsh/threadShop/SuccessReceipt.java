@@ -18,19 +18,30 @@ public class SuccessReceipt implements Receipt {
     }
 
     public String out() {
-        String result = ldt.format(formatter) + "\n";
-        result += customerName + "\n";
+        StringBuilder result = new StringBuilder(ldt.format(formatter) + "\n");
+        result.append(customerName).append("\n");
         for (Item item : itemsList) {
-            result += "Number : " + item.getNumber() +
-                    " Quantity " + item.getQuantity() + " " + item.getGood().getName() +
-                    " Price " + Math.round(item.getCost() * 100.0) / 100.0 + " Discount : " +
-                    Math.round(item.getDiscountAmount() * 100.0) / 100.0 + "\n";
+            result.append("Number : ")
+                    .append(item.getNumber())
+                    .append(" Quantity ")
+                    .append(item.getQuantity())
+                    .append(" ")
+                    .append(item.getGood().getName())
+                    .append(" Price ")
+                    .append(Math.round(item.getCost() * 100.0) / 100.0)
+                    .append(" Discount : ")
+                    .append(Math.round(item.getDiscountAmount() * 100.0) / 100.0)
+                    .append("\n");
         }
-        result += "Sum " + Math.round(totalSum * 100.0) / 100.0 + "\n";
-        result += "Change " + Math.round(change * 100.0) / 100.0 + "\n";
+        result.append("Sum ")
+                .append(Math.round(totalSum * 100.0) / 100.0)
+                .append("\n");
+        result.append("Change ")
+                .append(Math.round(change * 100.0) / 100.0)
+                .append("\n");
         System.out.println(result);
 
-        return result;
+        return result.toString();
     }
 
     private final DateTimeFormatter formatter =

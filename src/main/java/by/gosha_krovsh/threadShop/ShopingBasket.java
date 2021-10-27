@@ -1,7 +1,6 @@
 package by.gosha_krovsh.threadShop;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ShopingBasket {
     private final ArrayList<Item> itemsList = new ArrayList<>();
