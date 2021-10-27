@@ -9,17 +9,20 @@ public class SuccessReceipt implements Receipt {
                           LocalDateTime ldt,
                           double totalSum,
                           double change,
-                          String customerName) {
+                          String customerName,
+                          String cashierName) {
         this.itemsList = itemsList;
         this.ldt = ldt;
         this.totalSum = totalSum;
         this.change = change;
         this.customerName = customerName;
+        this.cashierName = cashierName;
     }
 
     public String out() {
         StringBuilder result = new StringBuilder(ldt.format(formatter) + "\n");
         result.append(customerName).append("\n");
+        result.append("Cashier: ").append(cashierName).append("\n");
         for (Item item : itemsList) {
             result.append("Number : ")
                     .append(item.getNumber())
@@ -51,4 +54,5 @@ public class SuccessReceipt implements Receipt {
     private final double totalSum;
     private final double change;
     private final String customerName;
+    private final String cashierName;
 }

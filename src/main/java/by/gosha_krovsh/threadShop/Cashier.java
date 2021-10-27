@@ -20,9 +20,9 @@ public class Cashier {
         Optional<Double> maxPrice = itemsList.stream().map(Item::getCost).reduce(Double::sum);
         if (maxPrice.isPresent() && money >= maxPrice.get()) {
             double change = money - maxPrice.get();
-            return new SuccessReceipt(itemsList, LocalDateTime.now(), maxPrice.get(), change, name);
+            return new SuccessReceipt(itemsList, LocalDateTime.now(), maxPrice.get(), change, name, this.name);
         } else {
-            return new FailureReceipt("Not Enough Money", LocalDateTime.now(), name);
+            return new FailureReceipt("Not Enough Money", LocalDateTime.now(), name, this.name);
         }
     }
 
