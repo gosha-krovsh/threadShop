@@ -7,7 +7,7 @@
   Main goals are to provide example of multithreading, synchronization and practice this programming field.
   
   For example customers(Polina, George, Egor, Klim, Fedya) visit the shop in that order.
-  But result order could be very different:
+  But result order usually differs, due to parallel operations:
   
 |  In  | Out  |
 | ------------- | -------------- |
