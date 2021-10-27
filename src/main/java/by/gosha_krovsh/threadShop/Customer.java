@@ -1,14 +1,19 @@
 package by.gosha_krovsh.threadShop;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Customer extends Thread {
-    public Customer(String name, double money, CashBox cashBox) {
+    public Customer(String name,
+                    double money,
+                    CashBox cashBox,
+                    Consumer<String> receiptConsumer) {
         super();
         this.name = name;
         this.basket = new ShopingBasket();
         this.money = money;
         this.cashBox = cashBox;
+        this.receiptConsumer = receiptConsumer;
     }
 
     @Override
@@ -16,8 +21,7 @@ public class Customer extends Thread {
         System.out.println(name + " entered the supermarket");
         if (basket.isEmpty()) {
             chooseProducts();
-//             Test version
-//             throw new RuntimeException("Badly created Customer");
+             throw new RuntimeException("Badly created Customer");
         }
 
         try {
@@ -28,7 +32,9 @@ public class Customer extends Thread {
 
         Cashier cashier = cashBox.getCashier();
         Receipt receipt = cashier.process(this.basket, this.money, this.name);
-        receipt.out();
+        receiptConsumer.accept(receipt.out());
+//        System.out.println(receipt.out());
+//        JOptionPane.showMessageDialog(null, receipt.out());
     }
 
     public List<Item> chooseProducts() {
@@ -42,6 +48,7 @@ public class Customer extends Thread {
         return this.basket.getItemsList();
     }
 
+    private final Consumer<String> receiptConsumer;
     private final ShopingBasket basket;
     private final CashBox cashBox;
     private final String name;

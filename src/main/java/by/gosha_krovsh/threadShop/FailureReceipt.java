@@ -13,11 +13,13 @@ public class FailureReceipt implements Receipt {
     }
 
     @Override
-    public synchronized void out() {
+    public String out() {
         String result = ldt.format(formatter) + "\n";
         result += this.customerName + "\n";
         result += this.cause + "\n";
         System.out.println(result);
+
+        return result;
     }
 
     private final String cause;

@@ -17,7 +17,7 @@ public class SuccessReceipt implements Receipt {
         this.customerName = customerName;
     }
 
-    public synchronized void out() {
+    public String out() {
         String result = ldt.format(formatter) + "\n";
         result += customerName + "\n";
         for (Item item : itemsList) {
@@ -29,6 +29,8 @@ public class SuccessReceipt implements Receipt {
         result += "Sum " + Math.round(totalSum * 100.0) / 100.0 + "\n";
         result += "Change " + Math.round(change * 100.0) / 100.0 + "\n";
         System.out.println(result);
+
+        return result;
     }
 
     private final DateTimeFormatter formatter =
