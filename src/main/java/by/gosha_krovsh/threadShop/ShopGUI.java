@@ -14,16 +14,20 @@ public class ShopGUI extends JFrame {
         setButtons();
     }
 
-    public synchronized void Out(String output) {
+    public synchronized void Out(String output, boolean await) {
         textGUI.addText(output);
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (await) {
+            try {
+                Thread.sleep(1000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     private void setUI() {
+        textGUI.setVisible(true);
+
         Container container = this.getContentPane();
         container.setLayout(new GridLayout(7, 1));
 
@@ -39,16 +43,16 @@ public class ShopGUI extends JFrame {
     private void setButtons() {
         this.startButton.addActionListener(event -> {
             for (var customer : customers) {
+                customer.chooseProducts();
                 customer.start();
             }
-            textGUI.setVisible(true);
         });
         this.addCustomer.addActionListener(event -> {
             Customer customer = new Customer(nameField.getText(),
                                             Double.parseDouble(moneyField.getText()),
                                             cashBox,
                                             this::Out);
-            customer.chooseProducts();
+            textGUI.addText(nameField.getText() + " entered the shop" + "\n");
             customers.add(customer);
         });
     }

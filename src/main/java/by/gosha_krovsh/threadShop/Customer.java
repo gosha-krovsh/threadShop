@@ -1,13 +1,13 @@
 package by.gosha_krovsh.threadShop;
 
 import java.util.List;
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 
 public class Customer extends Thread {
     public Customer(String name,
                     double money,
                     CashBox cashBox,
-                    Consumer<String> receiptConsumer) {
+                    BiConsumer<String, Boolean> receiptConsumer) {
         super();
         this.name = name;
         this.basket = new ShopingBasket();
@@ -32,23 +32,23 @@ public class Customer extends Thread {
 
         Cashier cashier = cashBox.getCashier();
         Receipt receipt = cashier.process(this.basket, this.money, this.name);
-        receiptConsumer.accept(receipt.out());
-//        System.out.println(receipt.out());
-//        JOptionPane.showMessageDialog(null, receipt.out());
+        receiptConsumer.accept(receipt.out(), true);
     }
 
     public List<Item> chooseProducts() {
         int good_amount = (int) (Math.random() * 8 + 1);
+        String print = "";
         for (int i = 0; i < good_amount; i++) {
             Good good = Shelf.getRandomGood();
-
             this.basket.put(new Item(good, basket.getItemsList().size() + 1, 1));
-            System.out.println(name + " put a " + good.getName() + " into his Basket");
+
+            print += name + " put a " + good.getName() + " into his Basket" + "\n";
         }
+        receiptConsumer.accept(print, false);
         return this.basket.getItemsList();
     }
 
-    private final Consumer<String> receiptConsumer;
+    private final BiConsumer<String, Boolean> receiptConsumer;
     private final ShopingBasket basket;
     private final CashBox cashBox;
     private final String name;
