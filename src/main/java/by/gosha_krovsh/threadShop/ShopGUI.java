@@ -25,10 +25,12 @@ public class ShopGUI extends JFrame {
 
     private void setUI() {
         Container container = this.getContentPane();
-        container.setLayout(new GridLayout(5, 1));
+        container.setLayout(new GridLayout(7, 1));
 
         container.add(customerLabel);
+        container.add(nameLabel);
         container.add(nameField);
+        container.add(moneyLabel);
         container.add(moneyField);
         container.add(addCustomer);
         container.add(startButton);
@@ -59,8 +61,10 @@ public class ShopGUI extends JFrame {
 
     private final TextGUI textGUI = new TextGUI();
     private final JLabel customerLabel = new JLabel("Provide Name and Money");
-    private final JTextField nameField = new JTextField("Name", 10);
-    private final JTextField moneyField = new JTextField("Money", 10);
+    private final JLabel nameLabel = new JLabel("Name: ");
+    private final JTextField nameField = new JTextField("", 10);
+    private final JLabel moneyLabel = new JLabel("Money: ");
+    private final JTextField moneyField = new JTextField("", 10);
     private final JButton addCustomer = new JButton("Add Customer");
     private final JButton startButton = new JButton("Start");
 }
